@@ -53,6 +53,23 @@ namespace FunctionsTask1
             array = tempArray;
         }
 
+        static void ResizeArray(ref string[] array, int size, int skipSymbolPosition)
+        {
+            string[] tempArray = new string[size];
+            int currentIndex = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i == skipSymbolPosition - 1)
+                {
+                    continue;
+                }
+                tempArray[currentIndex] = array[i];
+                currentIndex++;
+            }
+
+            array = tempArray;
+        }
+
         static void AddDossier(ref string[] fio, ref string[] post)
         {
             Console.Write("Введите ФИО : ");
@@ -86,23 +103,8 @@ namespace FunctionsTask1
                 return;
             }
 
-            string[] tempFio = new string[fio.Length - 1];
-            string[] tempPost = new string[post.Length - 1];
-            int currentIndex = 0;
-
-            for (int i = 0; i < fio.Length; i++)
-            {
-                if (i == dossierNumber - 1)
-                {
-                    continue;
-                }
-
-                tempFio[currentIndex] = fio[i];
-                tempPost[currentIndex] = post[i];
-                currentIndex++;
-            }
-            fio = tempFio;
-            post = tempPost;
+            ResizeArray(ref fio, fio.Length - 1, dossierNumber);
+            ResizeArray(ref post, post.Length - 1, dossierNumber);
         }
 
         static void SearchDossier(string[] fio, string[] post)
